@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 // App Packages
-import 'package:app/pages/Home.dart';
+
+import 'package:app/pages/Home/Home.dart';
+import 'package:app/pages/NavController.dart';
 import 'package:app/pages/Register/main.dart';
 import 'package:app/pages/Login/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,8 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF100f10)),
-      home: (FirebaseAuth.instance.currentUser != null) ? Home() : Login(),
+      theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
+      home: NavScreen(),
     );
   }
 }
