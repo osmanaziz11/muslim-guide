@@ -1,4 +1,4 @@
-import 'package:app/pages/Home/screens/Offline.widgets/StartQuiz.dart';
+import 'package:app/pages/NavigationScreen/Home/screens/Offline.widgets/StartQuiz.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

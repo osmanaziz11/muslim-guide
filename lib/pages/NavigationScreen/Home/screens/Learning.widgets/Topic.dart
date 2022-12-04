@@ -1,4 +1,4 @@
-import 'package:app/pages/Home/screens/Learning.widgets/Youtube.dart';
+import 'package:app/pages/NavigationScreen/Home/screens/Learning.widgets/Youtube.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, non_constant_identifier_names
 
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/models/Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:app/pages/Register/util/widget.dart';
+import 'package:app/pages/Register/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,7 +16,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  bool Loader = false;
+  bool _Loader = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -57,7 +58,7 @@ class _RegisterState extends State<Register> {
               Form(
                 child: MyWidget.getForm(),
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.disabled,
               ),
               SizedBox(
                 height: 20,
@@ -65,15 +66,15 @@ class _RegisterState extends State<Register> {
               Container(
                 height: 40,
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff1E1E1E)),
-                  onPressed: _registerUser,
-                  child: !Loader
-                      ? Text("Sign Up",
+                  onPressed: _signup,
+                  child: !_Loader
+                      ? Text("Sign up",
                           style: GoogleFonts.alegreyaSans(letterSpacing: 2))
-                      : MyWidget.getLoader(),
+                      : CircularLoader(),
                 ),
               ),
               SizedBox(
@@ -106,30 +107,31 @@ class _RegisterState extends State<Register> {
       });
     } on FirebaseAuthException catch (ex) {
       setState(() {
-        Loader = false;
+        _Loader = false;
       });
       debugPrint(ex.code.toString());
     }
   }
 
-  void _registerUser() async {
+  void _signup() async {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
       form.save();
       setState(() {
-        Loader = true;
+        _Loader = true;
       });
       // call firebase auth instanse for email and password
       try {
         UserCredential userCred = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: MyWidget.email, password: MyWidget.password);
+
         if (userCred.user != null) {
           _saveUser(userCred);
         }
       } on FirebaseAuthException catch (ex) {
         setState(() {
-          Loader = false;
+          _Loader = false;
         });
         debugPrint(ex.code.toString());
       }

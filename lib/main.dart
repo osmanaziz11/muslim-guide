@@ -2,11 +2,10 @@
 
 // App Packages
 
-import 'package:app/pages/Home/Home.dart';
-import 'package:app/pages/NavController.dart';
-import 'package:app/pages/Register/main.dart';
-import 'package:app/pages/Login/main.dart';
+import 'package:app/pages/Application.dart';
+import 'package:app/pages/Login/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 // Flutter Packages
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +24,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
-      home: NavScreen(),
+      home: (FirebaseAuth.instance.currentUser != null)
+          ? Application()
+          : Login(), // Application contains all the app except authentication module
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:app/pages/Home/screens/Offline.widgets/widgets.dart';
+import 'package:app/pages/NavigationScreen/Home/screens/Offline.widgets/widgets.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';

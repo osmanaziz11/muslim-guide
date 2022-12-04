@@ -1,11 +1,24 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+import 'package:app/customWidget/CircularLoader.dart';
+import 'package:app/pages/Application.dart';
+import 'package:app/pages/NavigationScreen/Home/Home.dart';
 import 'package:app/pages/Login/widgets/widgets.dart';
-import 'package:app/pages/Register/main.dart';
+import 'package:app/pages/Register/Register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool _Loader = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +56,28 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              widget.getForm(),
+              Form(
+                child: widget.getForm(),
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.disabled,
+              ),
               SizedBox(
                 height: 20,
               ),
-              widget.getButton(),
+              Container(
+                height: 40,
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff1E1E1E)),
+                  onPressed: _signin,
+                  child: !_Loader
+                      ? Text("Sign in",
+                          style: GoogleFonts.alegreyaSans(letterSpacing: 2))
+                      : CircularLoader(),
+                ),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -71,5 +101,26 @@ class Login extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  void _signin() async {
+    final FormState? form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      setState(() {
+        _Loader = true;
+      });
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: widget.email, password: widget.password);
+        if (FirebaseAuth.instance.currentUser != null) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.pushReplacement(
+              context, CupertinoPageRoute(builder: (context) => Application()));
+        }
+      } on FirebaseAuthException catch (ex) {
+        print(ex);
+      }
+    }
   }
 }

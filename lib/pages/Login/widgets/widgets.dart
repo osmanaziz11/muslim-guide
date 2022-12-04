@@ -1,3 +1,4 @@
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -7,6 +8,9 @@ import 'package:iconify_flutter/icons/simple_icons.dart';
 
 // ignore: camel_case_types
 class widget {
+  static String email = '';
+  static String password = '';
+
   static Center getLogo() {
     return Center(
       child: Image.asset(
@@ -35,12 +39,23 @@ class widget {
   static Container getForm() {
     return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            const TextField(
-              style: TextStyle(color: Colors.white),
-              cursorColor: Color(0xFFBEC2C2),
+            TextFormField(
+              validator: (value) {
+                if (value == '') {
+                  return 'Email is required';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                email = value.toString();
+              },
+              key: const Key("email"),
+              style: const TextStyle(color: Colors.white),
+              cursorColor: const Color(0xFFBEC2C2),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 hintStyle: TextStyle(
@@ -55,7 +70,18 @@ class widget {
                 ),
               ),
             ),
-            const TextField(
+            TextFormField(
+              validator: (value) {
+                if (value == '') {
+                  return 'Password is required';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                password = value.toString();
+              },
+              key: Key("password"),
               style: TextStyle(color: Colors.white),
               cursorColor: Color(0xFFBEC2C2),
               textAlign: TextAlign.center,

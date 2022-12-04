@@ -146,15 +146,4 @@ class MyWidget {
               color: Color.fromARGB(202, 255, 253, 253), fontSize: 13)),
     );
   }
-
-  static SizedBox getLoader() {
-    return SizedBox(
-      height: 20,
-      width: 20,
-      child: CircularProgressIndicator(
-        color: Colors.white,
-        strokeWidth: 2,
-      ),
-    );
-  }
 }
