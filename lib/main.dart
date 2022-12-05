@@ -22,11 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
-      home: (FirebaseAuth.instance.currentUser != null)
-          ? Application()
-          : Login(), // Application contains all the app except authentication module
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
+        home: (FirebaseAuth.instance.currentUser != null)
+            ? Application()
+            : Login());
   }
 }

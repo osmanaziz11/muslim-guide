@@ -1,3 +1,4 @@
+import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/screens/Learning.widgets/Youtube.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,9 +17,7 @@ class _ChooseTopicState extends State<ChooseTopic> {
   InkWell choosenTopic(name, info) {
     return InkWell(
       onTap: () {
-        setState(() {
-          videoModule = true;
-        });
+        Navigation.appNavigation.currentState!.pop();
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

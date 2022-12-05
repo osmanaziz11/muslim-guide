@@ -4,6 +4,7 @@ import 'package:app/pages/Application.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
 import 'package:app/pages/Login/widgets/widgets.dart';
 import 'package:app/pages/Register/Register.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,9 @@ class _LoginState extends State<Login> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: widget.email, password: widget.password);
         if (FirebaseAuth.instance.currentUser != null) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid);
           Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushReplacement(
               context, CupertinoPageRoute(builder: (context) => Application()));

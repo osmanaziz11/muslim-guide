@@ -1,3 +1,4 @@
+import 'package:app/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,26 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  InkWell box(text) {
+  InkWell box(index, text) {
     return InkWell(
       onTap: () {
-        setState(() {});
+        switch (index) {
+          case 1:
+            Navigation.appNavigation.currentState!.pushNamed('/Learning');
+            break;
+          case 2:
+            Navigation.appNavigation.currentState!.pushNamed('/Offline');
+            break;
+          case 3:
+            Navigation.appNavigation.currentState!.pushNamed('/Online');
+            break;
+          case 4:
+            Navigation.appNavigation.currentState!.pushNamed('/Compitition');
+            break;
+
+          default:
+            Navigation.appNavigation.currentState!.pushNamed('/');
+        }
       },
       child: Container(
         width: 50,
@@ -68,10 +85,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              box('Learning'),
-              box('Ofline'),
-              box('Online'),
-              box('Comp')
+              box(1, "Learning"),
+              box(2, "Offline"),
+              box(3, "Online"),
+              box(4, "Comp")
             ],
           ),
           SizedBox(

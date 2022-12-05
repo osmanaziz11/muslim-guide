@@ -1,3 +1,4 @@
+import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/screens/Offline.widgets/StartQuiz.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +58,10 @@ Container topics() {
               crossAxisCount: 2, crossAxisSpacing: 15.0, mainAxisSpacing: 15.0),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigation.appNavigation.currentState!
+                    .pushNamed('/Offline/ChooseTopic/StartQuiz');
+              },
               child: Container(
                 height: 30,
                 decoration: BoxDecoration(

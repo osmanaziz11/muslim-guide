@@ -1,3 +1,4 @@
+import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/screens/Learning.widgets/Topic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,9 +18,7 @@ class _LearningState extends State<Learning> {
   InkWell ageGroups(text) {
     return InkWell(
       onTap: () {
-        setState(() {
-          topicModule = true;
-        });
+        Navigation.appNavigation.currentState!.pushNamed("/Learning/ageGroup");
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
