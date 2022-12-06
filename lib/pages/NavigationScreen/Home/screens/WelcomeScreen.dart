@@ -12,6 +12,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  FirebaseAuth! user = FirebaseAuth.instance.currentUser();
   InkWell box(index, text) {
     return InkWell(
       onTap: () {
@@ -68,7 +69,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         padding:
             const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Welcome back, Afreen!",
+          Text("Welcome back, $user!",
               style: GoogleFonts.comfortaa(
                   fontWeight: FontWeight.w900,
                   color: const Color.fromARGB(202, 255, 253, 253),
