@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 import 'package:app/customWidget/CircularLoader.dart';
+import 'package:app/models/Users.dart';
 import 'package:app/pages/Application.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
 import 'package:app/pages/Login/widgets/widgets.dart';
@@ -115,9 +116,7 @@ class _LoginState extends State<Login> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: widget.email, password: widget.password);
         if (FirebaseAuth.instance.currentUser != null) {
-          FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid);
+          print(FirebaseAuth.instance.currentUser);
           Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushReplacement(
               context, CupertinoPageRoute(builder: (context) => Application()));

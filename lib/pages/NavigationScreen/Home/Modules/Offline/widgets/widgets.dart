@@ -1,5 +1,5 @@
 import 'package:app/navigation.dart';
-import 'package:app/pages/NavigationScreen/Home/screens/Offline.widgets/StartQuiz.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,24 +32,11 @@ List<Map> option = [
   },
 ];
 
-Container header(text) {
-  return Container(
-    margin: const EdgeInsets.only(top: 15, bottom: 5),
-    child: Column(children: [
-      Text(
-        text,
-        style: GoogleFonts.alegreya(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 35),
-      ),
-    ]),
-  );
-}
-
 // Offline Quiz Topics
 Container topics() {
   return Container(
       width: double.infinity,
-      height: 300,
+      height: 500,
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GridView.builder(
@@ -63,7 +50,7 @@ Container topics() {
                     .pushNamed('/Offline/ChooseTopic/StartQuiz');
               },
               child: Container(
-                height: 30,
+                height: 90,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white),

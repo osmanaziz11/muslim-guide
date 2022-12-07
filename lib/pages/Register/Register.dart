@@ -90,6 +90,7 @@ class _RegisterState extends State<Register> {
 
   void _saveUser(userCred) async {
     try {
+      FirebaseAuth auth = FirebaseAuth.instance;
       String uid = userCred.user!.uid;
       UserModel newUser = UserModel(
           uid: uid,
@@ -97,8 +98,9 @@ class _RegisterState extends State<Register> {
           name: MyWidget.name,
           password: MyWidget.password,
           profilepic: "");
-
-      await FirebaseFirestore.instance
+      await auth.currentUser!.updateDisplayName(MyWidget.name);
+      await auth.currentUser!.updatePhotoURL("assets/images/avatar1.png");
+      FirebaseFirestore.instance
           .collection("users")
           .doc(uid)
           .set(newUser.toMap())

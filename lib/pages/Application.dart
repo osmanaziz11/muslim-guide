@@ -1,12 +1,16 @@
 // import 'package:app/pages/Home/Home.dart';
+import 'package:app/models/Users.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
-import 'package:app/pages/NavigationScreen/Home/screens/Learning.dart';
-import 'package:app/pages/NavigationScreen/Home/screens/Offline.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Learning/Learning.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Offline/OfflineBoarding.dart';
 import 'package:app/pages/NavigationScreen/Notification/Notification.dart';
 import 'package:app/pages/NavigationScreen/Profile/Profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
+  // final UserModel
   const Application({super.key});
 
   @override
@@ -14,12 +18,18 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
-  int _currentIndex = 0;
-  final List<Widget> _screens = const [
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  final List<Widget> _screens = [
     HomeScreen(),
     NotificationScreen(),
     ProfileScreen()
   ];
+  int _currentIndex = 0;
+  FirebaseAuth auth = FirebaseAuth.instance;
   void _navigate(value) {
     setState(() {
       _currentIndex = value;
@@ -34,25 +44,30 @@ class _ApplicationState extends State<Application> {
         centerTitle: true,
         leading: const Icon(
           Icons.menu_rounded,
-          size: 28,
+          size: 32,
           color: Color.fromARGB(190, 255, 255, 255),
         ),
         title: Container(
-          padding: const EdgeInsets.all(10),
+          // padding: const EdgeInsets.all(7),
           child: Image.asset(
             "assets/images/Logo.png",
-            width: 50,
+            width: 70,
           ),
         ),
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: const CircleAvatar(
-              backgroundColor: Color.fromARGB(255, 185, 183, 183),
-              radius: 13, //radius is 35.
-              //AssetImage loads image URL.
+            width: 30,
+            height: 30,
+            margin: const EdgeInsets.only(right: 15, top: 12),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage((auth.currentUser!.photoURL) != null
+                      ? (auth.currentUser!.photoURL) as String
+                      : "assets/images/avatar1.png"),
+                  fit: BoxFit.contain),
+              shape: BoxShape.circle,
             ),
-          ),
+          )
         ],
       ),
       body: _screens[_currentIndex],

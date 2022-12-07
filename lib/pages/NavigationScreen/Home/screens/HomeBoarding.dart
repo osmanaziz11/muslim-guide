@@ -1,18 +1,18 @@
+import 'package:app/models/Users.dart';
 import 'package:app/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class HomeBoarding extends StatefulWidget {
+  const HomeBoarding({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<HomeBoarding> createState() => _HomeBoardingState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  FirebaseAuth! user = FirebaseAuth.instance.currentUser();
+class _HomeBoardingState extends State<HomeBoarding> {
   InkWell box(index, text) {
     return InkWell(
       onTap: () {
@@ -35,20 +35,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         }
       },
       child: Container(
-        width: 50,
-        height: 70,
-        margin: const EdgeInsets.only(right: 14, top: 14),
+        width: 65,
+        height: 90,
+        margin: const EdgeInsets.only(top: 14),
+        alignment: AlignmentDirectional.center,
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(bottom: 4),
+              margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 238, 237, 237),
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white,
               ),
               width: double.infinity,
               child: Icon(Icons.gamepad),
-              height: 50,
+              height: 60,
             ),
             Text(
               text,
@@ -69,22 +70,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         padding:
             const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Welcome back, $user!",
-              style: GoogleFonts.comfortaa(
-                  fontWeight: FontWeight.w900,
+          Text(
+              "Welcome back, ${FirebaseAuth.instance.currentUser!.displayName}!",
+              style: GoogleFonts.alegreya(
+                  // fontWeight: FontWeight.w900,
                   color: const Color.fromARGB(202, 255, 253, 253),
-                  fontSize: 20)),
+                  fontSize: 30)),
           SizedBox(
             height: 5,
           ),
           Text("How are you feeling today?",
               style: GoogleFonts.comfortaa(
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                   color: const Color.fromARGB(142, 255, 255, 255),
-                  fontSize: 13)),
+                  fontSize: 15)),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               box(1, "Learning"),
               box(2, "Offline"),
@@ -99,7 +101,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
-              height: 290,
+              height: 400,
               child: ListView.builder(
                 itemCount: 2,
                 itemBuilder: (context, index) {
@@ -110,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       color: Color.fromARGB(255, 238, 237, 237),
                     ),
                     width: double.infinity,
-                    height: 130,
+                    height: 180,
                   );
                 },
               ),
