@@ -54,8 +54,7 @@ class _countDownWidgetState extends State<countDownWidget> {
   Widget build(BuildContext context) {
     return Text(
       "${widget._current}",
-      style: GoogleFonts.alegreyaSans(
-          color: Colors.white, fontSize: widget._fontSize),
+      style: GoogleFonts.alegreyaSans(color: Colors.white, fontSize: 80),
     );
   }
 }

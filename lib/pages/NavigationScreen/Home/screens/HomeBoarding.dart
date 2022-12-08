@@ -108,6 +108,9 @@ class _HomeBoardingState extends State<HomeBoarding> {
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage("assets/images/a.webp")),
                       borderRadius: BorderRadius.circular(10),
                       color: Color.fromARGB(255, 238, 237, 237),
                     ),
