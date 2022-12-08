@@ -2,6 +2,7 @@
 
 // App Packages
 
+import 'package:app/navigation.dart';
 import 'package:app/pages/Application.dart';
 import 'package:app/pages/Login/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: Navigation.mainNavigation,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
       home:

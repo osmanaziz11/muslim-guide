@@ -105,6 +105,7 @@ class _RegisterState extends State<Register> {
           .doc(uid)
           .set(newUser.toMap())
           .then((value) {
+        // FirebaseFirestore.instance.collection("notifications").doc(uid).set();
         Navigator.pop(context);
       });
     } on FirebaseAuthException catch (ex) {

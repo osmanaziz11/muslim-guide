@@ -1,5 +1,6 @@
 // import 'package:app/pages/Home/Home.dart';
 import 'package:app/models/Users.dart';
+import 'package:app/pages/Login/Login.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Learning/Learning.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/OfflineBoarding.dart';
@@ -23,6 +24,10 @@ class _ApplicationState extends State<Application> {
     super.initState();
   }
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   final List<Widget> _screens = [
     HomeScreen(),
     NotificationScreen(),
@@ -31,9 +36,18 @@ class _ApplicationState extends State<Application> {
   int _currentIndex = 0;
   FirebaseAuth auth = FirebaseAuth.instance;
   void _navigate(value) {
-    setState(() {
-      _currentIndex = value;
-    });
+    if (value == 3) {
+      _signOut();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Login(),
+          ));
+    } else {
+      setState(() {
+        _currentIndex = value;
+      });
+    }
   }
 
   @override

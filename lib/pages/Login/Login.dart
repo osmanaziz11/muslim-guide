@@ -116,7 +116,6 @@ class _LoginState extends State<Login> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: widget.email, password: widget.password);
         if (FirebaseAuth.instance.currentUser != null) {
-          print(FirebaseAuth.instance.currentUser);
           Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushReplacement(
               context, CupertinoPageRoute(builder: (context) => Application()));
