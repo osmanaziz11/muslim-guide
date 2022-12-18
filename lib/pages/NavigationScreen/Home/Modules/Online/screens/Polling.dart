@@ -2,6 +2,7 @@
 
 import 'package:app/customWidget/Appbar.dart';
 import 'package:app/customWidget/MainHeading.dart';
+import 'package:app/customWidget/countDown.dart';
 import 'package:app/models/Of_topics.dart';
 import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/screens/StartQuiz.dart';
@@ -11,15 +12,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
+import 'package:quiver/async.dart';
 
-class OfflineBoardingScreen extends StatefulWidget {
-  const OfflineBoardingScreen({super.key});
+class Polling extends StatefulWidget {
+  late String id;
+  Polling({super.key, required this.id});
 
   @override
-  State<OfflineBoardingScreen> createState() => _OfflineBoardingScreenState();
+  State<Polling> createState() => _PollingState();
 }
 
-class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
+class _PollingState extends State<Polling> {
+  void topicSelect() {
+    print('Hi');
+  }
+
+  void abc() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,21 +39,26 @@ class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
       )),
       body: Container(
         width: double.infinity,
+        height: 600,
         child: SingleChildScrollView(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                MainHeading("Offline Quiz"),
+                MainHeading("Online Quiz"),
                 Text(
-                  'Choose the topic you want us to assess',
+                  'Polling Start',
                   style: GoogleFonts.alegreyaSans(
                       color: const Color(0xFF5A5A5A), fontSize: 14),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                     width: double.infinity,
-                    height: 500,
+                    color: Colors.black,
+                    height: 350,
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: StreamBuilder(
@@ -117,6 +131,7 @@ class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
                             child: CircularProgressIndicator(),
                           );
                         })),
+                countDownWidget.custom(20, func: [topicSelect, abc])
               ],
             ),
           ),

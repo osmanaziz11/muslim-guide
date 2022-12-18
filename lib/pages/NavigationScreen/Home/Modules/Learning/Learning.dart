@@ -1,23 +1,33 @@
+import 'package:app/customWidget/Appbar.dart';
+import 'package:app/customWidget/MainHeading.dart';
 import 'package:app/navigation.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Learning/widgets/Topic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/material_symbols.dart';
 
-class Learning extends StatefulWidget {
-  const Learning({super.key});
+class LearningBoarding extends StatefulWidget {
+  const LearningBoarding({super.key});
 
   @override
-  State<Learning> createState() => _LearningState();
+  State<LearningBoarding> createState() => _LearningBoardingState();
 }
 
-class _LearningState extends State<Learning> {
+class _LearningBoardingState extends State<LearningBoarding> {
   bool topicModule = false;
   InkWell ageGroups(text) {
     return InkWell(
       onTap: () {
-        Navigation.appNavigation.currentState!.pushNamed("/Learning/ageGroup");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ChooseTopic(category: text.toString().toLowerCase()),
+            ));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +36,7 @@ class _LearningState extends State<Learning> {
           Container(
             width: 40,
             height: 40,
-            child: Icon(Icons.timelapse),
+            child: const Icon(Icons.timelapse),
             margin: const EdgeInsets.only(right: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -47,34 +57,35 @@ class _LearningState extends State<Learning> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          "Choose Your Age Group",
-          style: GoogleFonts.comfortaa(
-              fontWeight: FontWeight.w900,
-              color: const Color.fromARGB(202, 255, 253, 253),
-              fontSize: 20),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          width: double.infinity,
-          alignment: AlignmentDirectional.center,
-          height: 300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ageGroups('10 - 15'),
-              ageGroups('15 - 20'),
-              ageGroups('20 - 30'),
-              ageGroups('30 - 40'),
-            ],
+    return Scaffold(
+      appBar: customAppBar(const Iconify(
+        MaterialSymbols.arrow_back_ios_rounded,
+        color: Colors.white,
+        size: 44,
+      )),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 20,
           ),
-        ),
-      ],
+          MainHeading("Choose Age Group"),
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            width: double.infinity,
+            alignment: AlignmentDirectional.center,
+            height: 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ageGroups('Child'),
+                ageGroups('Young'),
+                ageGroups('Adult'),
+                ageGroups('Old'),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

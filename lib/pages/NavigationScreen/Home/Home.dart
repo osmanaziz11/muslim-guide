@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:app/pages/NavigationScreen/Home/Modules/Ask/Ask.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Feed/Feed.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Learning/Learning.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/OfflineBoarding.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Online/OnlineBoarding.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Online/screens/CreateRoom.dart';
@@ -36,6 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
               page = OfflineBoardingScreen();
               break;
             }
+          case "/learning":
+            {
+              page = LearningBoarding();
+              break;
+            }
           case "/Online":
             {
               page = OnlineBoarding();
@@ -46,9 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
               page = CreateRoom();
               break;
             }
-          case "/Online/createroom/quizroom":
+
+          case "/ask":
             {
-              page = QuizRoom();
+              page = Ask();
+              break;
+            }
+          case "/feed":
+            {
+              page = Feed();
               break;
             }
 

@@ -27,8 +27,12 @@ class MyApp extends StatelessWidget {
       navigatorKey: Navigation.mainNavigation,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 2, 2, 2)),
-      home:
-          (FirebaseAuth.instance.currentUser != null) ? Application() : Login(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => (FirebaseAuth.instance.currentUser != null)
+            ? Application()
+            : Login()
+      },
     );
   }
 }

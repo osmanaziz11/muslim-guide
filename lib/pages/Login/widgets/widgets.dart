@@ -58,6 +58,7 @@ class widget {
               cursorColor: const Color(0xFFBEC2C2),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
+              
                 hintStyle: TextStyle(
                   color: Color(0xFFBEC2C2),
                 ),

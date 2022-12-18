@@ -1,4 +1,5 @@
 // import 'package:app/pages/Home/Home.dart';
+import 'package:app/customWidget/BadgeIcon.dart';
 import 'package:app/models/Users.dart';
 import 'package:app/pages/Login/Login.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
@@ -29,9 +30,9 @@ class _ApplicationState extends State<Application> {
   }
 
   final List<Widget> _screens = [
-    HomeScreen(),
-    NotificationScreen(),
-    ProfileScreen()
+    const HomeScreen(),
+    const NotificationScreen(),
+    const ProfileScreen()
   ];
   int _currentIndex = 0;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -41,7 +42,7 @@ class _ApplicationState extends State<Application> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Login(),
+            builder: (context) => const Login(),
           ));
     } else {
       setState(() {
@@ -52,73 +53,54 @@ class _ApplicationState extends State<Application> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        leading: const Icon(
-          Icons.menu_rounded,
-          size: 32,
-          color: Color.fromARGB(190, 255, 255, 255),
-        ),
-        title: Container(
-          // padding: const EdgeInsets.all(7),
-          child: Image.asset(
-            "assets/images/Logo.png",
-            width: 70,
-          ),
-        ),
-        actions: [
-          Container(
-            width: 30,
-            height: 30,
-            margin: const EdgeInsets.only(right: 15, top: 12),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage((auth.currentUser!.photoURL) != null
-                      ? (auth.currentUser!.photoURL) as String
-                      : "assets/images/avatar1.png"),
-                  fit: BoxFit.contain),
-              shape: BoxShape.circle,
-            ),
-          )
-        ],
-      ),
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-              label: "Home",
+    return SafeArea(
+      child: Scaffold(
+        body: _screens[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          // showSelectedLabels: false,
+          // showUnselectedLabels: false,
+          items: [
+            const BottomNavigationBarItem(
+                label: "Home",
+                backgroundColor: Color.fromARGB(169, 6, 6, 6),
+                icon: Icon(
+                  Icons.home,
+                )),
+            BottomNavigationBarItem(
+                label: "Notifications",
+                icon: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("notifications")
+                      .where("rID",
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (_, snapshot) => BadgeIcon(
+                    icon: const Icon(Icons.notifications, size: 25),
+                    badgeCount: (snapshot.hasData)
+                        ? snapshot.data!.docChanges.length
+                        : 0,
+                  ),
+                )),
+            const BottomNavigationBarItem(
+              label: "Profile",
+              icon: Icon(Icons.dashboard),
               backgroundColor: Color.fromARGB(169, 6, 6, 6),
-              icon: Icon(
-                Icons.home,
-              )),
-          BottomNavigationBarItem(
-            label: "Notifications",
-            icon: Icon(Icons.notifications),
-            backgroundColor: Color.fromARGB(169, 6, 6, 6),
-          ),
-          BottomNavigationBarItem(
-            label: "Profile",
-            icon: Icon(Icons.dashboard),
-            backgroundColor: Color.fromARGB(169, 6, 6, 6),
-          ),
-          BottomNavigationBarItem(
-            label: "Sign out",
-            icon: Icon(Icons.exit_to_app),
-            backgroundColor: Color.fromARGB(169, 6, 6, 6),
-          ),
-        ],
-        iconSize: 20,
-        unselectedFontSize: 11,
-        selectedFontSize: 11,
-        showUnselectedLabels: true,
-        currentIndex: _currentIndex,
-        unselectedItemColor: const Color.fromARGB(142, 255, 255, 255),
-        fixedColor: const Color.fromARGB(255, 247, 244, 243),
-        onTap: _navigate,
+            ),
+            const BottomNavigationBarItem(
+              label: "Sign out",
+              icon: Icon(Icons.exit_to_app),
+              backgroundColor: Color.fromARGB(169, 6, 6, 6),
+            ),
+          ],
+          iconSize: 20,
+          unselectedFontSize: 11,
+          selectedFontSize: 11,
+          showUnselectedLabels: true,
+          currentIndex: _currentIndex,
+          unselectedItemColor: const Color.fromARGB(142, 255, 255, 255),
+          fixedColor: const Color.fromARGB(255, 247, 244, 243),
+          onTap: _navigate,
+        ),
       ),
     );
   }

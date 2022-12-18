@@ -6,15 +6,15 @@ class NotificationModel {
   String? senderEmail;
   String? type;
   String? roomID;
-  late DateTime sendon;
+  // late DateTime sendon;
 
-  NotificationModel(
-      {required this.rID,
-      this.senderName,
-      this.senderEmail,
-      this.type,
-      this.roomID,
-      required this.sendon});
+  NotificationModel({
+    required this.rID,
+    this.senderName,
+    this.senderEmail,
+    this.type,
+    this.roomID,
+  });
 
   NotificationModel.fromMap(Map<String, dynamic> map) {
     rID = map["rID"];
@@ -22,7 +22,7 @@ class NotificationModel {
     senderEmail = map["senderEmail"];
     roomID = map["roomID"];
     type = map["type"];
-    sendon = map["sendon"];
+    // sendon = map["sendon"];
   }
 
   Map<String, dynamic> toMap() {
@@ -32,7 +32,7 @@ class NotificationModel {
       "senderEmail": senderEmail,
       "roomID": roomID,
       "type": type,
-      "sendon": sendon,
+      // "sendon": sendon,
     };
   }
 }

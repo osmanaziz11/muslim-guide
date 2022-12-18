@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiver/async.dart';
 
 class countdown extends StatefulWidget {
-  final changeStatus;
-  const countdown({super.key, required this.changeStatus});
+  late var changeStatus;
+  countdown({super.key, required this.changeStatus});
 
   @override
   State<countdown> createState() => _countdownState();
