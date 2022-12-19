@@ -35,7 +35,8 @@ class MyWidget {
 
   static Container getForm() {
     final nameRegExp = RegExp(r'^[a-zA-Z ]{3,10}$');
-    final emailRegExp = RegExp(r'^[a-zA-Z@.]{5,20}$');
+    final emailRegExp = RegExp(
+        r'^[a-zA-Z0-9.]+@(gmail.com|yahoo.com|bahria.edu.pk|outlook.com|hotmail.com)$');
     final passwordRegExp = RegExp(r'^[a-zA-Z0-9@#$.!^%*]{5,10}$');
     return Container(
         width: double.infinity,

@@ -35,7 +35,7 @@ class _HomeBoardingState extends State<HomeBoarding> {
             Navigation.appNavigation.currentState!.pushNamed('/Online');
             break;
           case 4:
-            Navigation.appNavigation.currentState!.pushNamed('/Compitition');
+            Navigation.appNavigation.currentState!.pushNamed('/comp');
             break;
 
           default:
@@ -89,7 +89,7 @@ class _HomeBoardingState extends State<HomeBoarding> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-                "Welcome back, ${FirebaseAuth.instance.currentUser!.displayName}!",
+                "Welcome back, ${FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0]}!",
                 style: GoogleFonts.alegreya(
                     // fontWeight: FontWeight.w900,
                     color: const Color.fromARGB(202, 255, 253, 253),

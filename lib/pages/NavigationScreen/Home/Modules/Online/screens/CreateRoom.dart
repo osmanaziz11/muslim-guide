@@ -26,7 +26,7 @@ class _CreateRoomState extends State<CreateRoom> {
   int numberOfParticipants = 0;
   bool inviteStatus = false;
   var selectId;
-  var roomID = Uuid().v1().substring(0, 7);
+  var roomID = const Uuid().v1().substring(0, 7);
   var searchUser = '';
   void participants(value) {
     setState(() {
@@ -146,8 +146,12 @@ class _CreateRoomState extends State<CreateRoom> {
                                         return ListTile(
                                           onTap: () {},
                                           leading: CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                                "${(user.profilepic == '') ? 'assets/images/avatar1.png' : user.profilepic}"),
+                                            backgroundImage: (user.profilepic !=
+                                                    "0")
+                                                ? NetworkImage(user.profilepic!)
+                                                    as ImageProvider
+                                                : const AssetImage(
+                                                    "assets/images/avatar1.png"),
                                           ),
                                           title: Text(
                                             user.name as String,
@@ -172,12 +176,12 @@ class _CreateRoomState extends State<CreateRoom> {
                                                         (inviteStatus)
                                                             ? selectId ==
                                                                     user.uid
-                                                                ? Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        55,
-                                                                        56,
-                                                                        55)
+                                                                ? const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    55,
+                                                                    56,
+                                                                    55)
                                                                 : Colors.red
                                                             : Colors.red),
                                                 onPressed: () async {
@@ -232,7 +236,7 @@ class _CreateRoomState extends State<CreateRoom> {
                                           ),
                                         );
                                       } else {
-                                        return Text("No record found.");
+                                        return const Text("No record found.");
                                       }
                                     },
                                   ),

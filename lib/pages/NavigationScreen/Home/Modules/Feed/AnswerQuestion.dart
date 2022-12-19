@@ -2,6 +2,7 @@ import 'package:app/customWidget/Appbar.dart';
 import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/customWidget/MainHeading.dart';
 import 'package:app/models/AnswersModel.dart';
+import 'package:app/models/Notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ import 'package:iconify_flutter/icons/material_symbols.dart';
 
 class AnswerQuestion extends StatefulWidget {
   late String questionID;
-  AnswerQuestion({super.key, required this.questionID});
+  late String askById;
+  AnswerQuestion({super.key, required this.questionID, required this.askById});
 
   @override
   State<AnswerQuestion> createState() => _AnswerQuestion();
@@ -139,6 +141,17 @@ class _AnswerQuestion extends State<AnswerQuestion> {
             .doc()
             .set(answerBy.toMap())
             .then((value) {
+          NotificationModel noti = NotificationModel(
+            rID: widget.askById,
+            senderName: FirebaseAuth.instance.currentUser!.displayName,
+            senderEmail: FirebaseAuth.instance.currentUser!.email,
+            roomID: "",
+            type: "answer",
+          );
+          FirebaseFirestore.instance
+              .collection("notifications")
+              .doc()
+              .set(noti.toMap());
           Navigator.pop(context);
         });
       } on FirebaseAuthException catch (ex) {

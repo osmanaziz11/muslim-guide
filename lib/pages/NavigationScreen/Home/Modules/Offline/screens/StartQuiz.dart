@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/customWidget/MainHeading.dart';
 import 'package:app/customWidget/countDown.dart';
 import 'package:app/models/QuizQuestion.dart';
@@ -178,7 +179,7 @@ class _StartQuizState extends State<StartQuiz> {
 
         // Displaying LoadingSpinner to indicate waiting state
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularLoader(),
         );
       },
     );

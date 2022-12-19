@@ -81,8 +81,12 @@ class _AnswersState extends State<Answers> {
                                     child: Column(children: [
                                       ListTile(
                                         leading: CircleAvatar(
-                                          backgroundImage:
-                                              AssetImage(data.answerByPic!),
+                                          backgroundImage: (data.answerByPic !=
+                                                  "0")
+                                              ? NetworkImage(data.answerByPic!)
+                                                  as ImageProvider
+                                              : const AssetImage(
+                                                  "assets/images/avatar1.png"),
                                         ),
                                         title: Text(
                                           data.answerByName!,
@@ -105,7 +109,8 @@ class _AnswersState extends State<Answers> {
                                             horizontal: 10),
                                         child: Text(
                                           data.answer!,
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ]),

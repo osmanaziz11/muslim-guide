@@ -28,8 +28,9 @@ class widget {
 
   static Container getDesc() {
     return Container(
+      alignment: AlignmentDirectional.center,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Text("Sign in now to  access and start learning.",
           textAlign: TextAlign.start,
           style: GoogleFonts.alegreyaSans(color: Colors.white54, fontSize: 17)),
@@ -44,8 +45,12 @@ class widget {
           children: [
             TextFormField(
               validator: (value) {
-                if (value == '') {
-                  return 'Email is required';
+                final emailRegExp = RegExp(
+                    r'^[a-zA-Z0-9.]+@(gmail.com|yahoo.com|bahria.edu.pk|outlook.com|hotmail.com)$');
+
+                if (value == '') return 'Email is required';
+                if (!emailRegExp.hasMatch(value.toString())) {
+                  return "Invalid Email";
                 } else {
                   return null;
                 }
@@ -57,8 +62,7 @@ class widget {
               style: const TextStyle(color: Colors.white),
               cursorColor: const Color(0xFFBEC2C2),
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
-              
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
                   color: Color(0xFFBEC2C2),
                 ),
@@ -82,11 +86,11 @@ class widget {
               onSaved: (value) {
                 password = value.toString();
               },
-              key: Key("password"),
-              style: TextStyle(color: Colors.white),
-              cursorColor: Color(0xFFBEC2C2),
+              key: const Key("password"),
+              style: const TextStyle(color: Colors.white),
+              cursorColor: const Color(0xFFBEC2C2),
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
                   color: Color(0xFFBEC2C2),
                 ),
@@ -99,13 +103,13 @@ class widget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 17,
             ),
             Text("Forget Password?",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.alegreyaSans(
-                    color: Color(0xFFBEC2C2), fontSize: 12))
+                    color: const Color(0xFFBEC2C2), fontSize: 12))
           ],
         ));
   }
@@ -114,10 +118,11 @@ class widget {
     return Container(
       height: 40,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: ElevatedButton(
         child: Text("LOGIN", style: GoogleFonts.alegreyaSans(letterSpacing: 2)),
-        style: ElevatedButton.styleFrom(backgroundColor: Color(0xff1E1E1E)),
+        style:
+            ElevatedButton.styleFrom(backgroundColor: const Color(0xff1E1E1E)),
         onPressed: () {
           print("Click");
         },
@@ -132,42 +137,42 @@ class widget {
         Container(
           width: 40,
           height: 40,
-          padding: EdgeInsets.all(8),
-          child: Iconify(
+          padding: const EdgeInsets.all(8),
+          child: const Iconify(
             AntDesign.google_outlined,
             color: Colors.white,
           ),
-          decoration:
-              BoxDecoration(color: Color(0xff010101), shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+              color: Color(0xff010101), shape: BoxShape.circle),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Container(
           width: 40,
           height: 40,
-          padding: EdgeInsets.all(8),
-          child: Iconify(
+          padding: const EdgeInsets.all(8),
+          child: const Iconify(
             SimpleIcons.meta,
             color: Color(0xff0080FA),
           ),
-          decoration:
-              BoxDecoration(color: Color(0xff010101), shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+              color: Color(0xff010101), shape: BoxShape.circle),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Container(
           width: 40,
           height: 40,
-          padding: EdgeInsets.all(7),
-          child: Iconify(
+          padding: const EdgeInsets.all(7),
+          child: const Iconify(
             Bytesize.github,
             color: Colors.white,
             size: 13,
           ),
-          decoration:
-              BoxDecoration(color: Color(0xff010101), shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+              color: Color(0xff010101), shape: BoxShape.circle),
         )
       ],
     );
@@ -183,7 +188,8 @@ class widget {
           child: Text("Doesn't have an account? Sign Up",
               textAlign: TextAlign.center,
               style: GoogleFonts.alegreyaSans(
-                  color: Color.fromARGB(202, 255, 253, 253), fontSize: 13)),
+                  color: const Color.fromARGB(202, 255, 253, 253),
+                  fontSize: 13)),
         ),
       ),
     );

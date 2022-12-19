@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:app/customWidget/Appbar.dart';
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/customWidget/MainHeading.dart';
 import 'package:app/customWidget/countDown.dart';
 import 'package:app/models/Of_topics.dart';
@@ -123,12 +124,12 @@ class _PollingState extends State<Polling> {
                                   });
                             } else {
                               return Center(
-                                child: Text("No topics found."),
+                                child: CircularLoader(),
                               );
                             }
                           }
                           return Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularLoader(),
                           );
                         })),
                 countDownWidget.custom(20, func: [topicSelect, abc])

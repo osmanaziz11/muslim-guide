@@ -13,24 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
 
-class QuizRoom extends StatefulWidget {
-  late String roomID;
-  late RoomModel hostInfo;
-  QuizRoom({super.key, required this.roomID});
+class Comp extends StatefulWidget {
+  Comp({super.key});
 
   @override
-  State<QuizRoom> createState() => _QuizRoomState();
+  State<Comp> createState() => _CompState();
 }
 
-class _QuizRoomState extends State<QuizRoom> {
+class _CompState extends State<Comp> {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  dynamic navigate() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Polling(id: widget.roomID),
-        ));
-  }
 
   @override
   void initState() {
@@ -98,7 +89,13 @@ class _QuizRoomState extends State<QuizRoom> {
           const SizedBox(height: 10),
           Container(
             height: 400,
-            child: countdown(changeStatus: navigate),
+            child: Center(
+              child: Text(
+                'Waiting for other participants',
+                style: GoogleFonts.alegreyaSans(
+                    color: Color.fromARGB(255, 255, 255, 255), fontSize: 14),
+              ),
+            ),
           ),
         ]),
       ),

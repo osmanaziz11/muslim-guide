@@ -91,8 +91,12 @@ class _FeedState extends State<Feed> {
                                       child: Column(children: [
                                         ListTile(
                                           leading: CircleAvatar(
-                                            backgroundImage:
-                                                AssetImage(data.askByPic!),
+                                            backgroundImage: (data.askByPic !=
+                                                    "0")
+                                                ? NetworkImage(data.askByPic!)
+                                                    as ImageProvider
+                                                : const AssetImage(
+                                                    "assets/images/avatar1.png"),
                                           ),
                                           title: Text(
                                             data.askByName!,
@@ -115,7 +119,7 @@ class _FeedState extends State<Feed> {
                                               horizontal: 10),
                                           child: Text(
                                             data.title!,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20),
                                           ),
@@ -127,8 +131,8 @@ class _FeedState extends State<Feed> {
                                               horizontal: 10),
                                           child: Text(
                                             data.question!,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                           ),
                                         ),
                                         Container(
@@ -144,7 +148,9 @@ class _FeedState extends State<Feed> {
                                                         builder: (context) =>
                                                             AnswerQuestion(
                                                                 questionID: data
-                                                                    .questionId),
+                                                                    .questionId,
+                                                                askById: data
+                                                                    .askById),
                                                       ));
                                                 },
                                                 child: StreamBuilder(

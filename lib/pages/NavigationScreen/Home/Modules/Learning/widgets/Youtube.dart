@@ -1,11 +1,12 @@
 import 'package:app/customWidget/Appbar.dart';
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
-// import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+// import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Youtube extends StatefulWidget {
   List videos;
@@ -16,22 +17,16 @@ class Youtube extends StatefulWidget {
 }
 
 class _YoutubeState extends State<Youtube> {
-  // late YoutubePlayerController _ytbPlayerController;
+  // YoutubePlayerController _controller = YoutubePlayerController(
+  //   initialVideoId: 'iLnmTe5Q2Qw',
+  //   flags: const YoutubePlayerFlags(
+  //     autoPlay: true,
+  //     mute: true,
+  //   ),
+  // );
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // setState(() {
-      //   _ytbPlayerController = YoutubePlayerController(
-      //     initialVideoId: widget.videos[0],
-      //     params: YoutubePlayerParams(
-      //       showFullscreenButton: true,
-      //       autoPlay: false,
-      //     ),
-      //   );
-      // });
-    });
   }
 
   @override
@@ -51,6 +46,7 @@ class _YoutubeState extends State<Youtube> {
             itemCount: widget.videos.length,
             itemBuilder: (context, index) {
               return Container(
+                  height: 200,
                   margin: const EdgeInsets.only(bottom: 10),
                   padding: const EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
@@ -67,8 +63,8 @@ class _YoutubeState extends State<Youtube> {
                       ),
                     ],
                   ),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+                  child: Center(
+                    child: CircularLoader(),
                   ));
             },
           )),

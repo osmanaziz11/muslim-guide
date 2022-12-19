@@ -16,7 +16,6 @@ AppBar customAppBar(Widget myIcon) {
     ),
     elevation: 0,
     title: Container(
-      // padding: const EdgeInsets.all(7),
       child: Image.asset(
         "assets/images/Logo.png",
         width: 70,
@@ -29,9 +28,9 @@ AppBar customAppBar(Widget myIcon) {
         margin: const EdgeInsets.only(right: 15, top: 12),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage((auth.currentUser!.photoURL) != null
-                  ? (auth.currentUser!.photoURL) as String
-                  : "assets/images/avatar1.png"),
+              image: (auth.currentUser!.photoURL != "0")
+                  ? NetworkImage(auth.currentUser!.photoURL!) as ImageProvider
+                  : AssetImage("assets/images/avatar1.png"),
               fit: BoxFit.contain),
           shape: BoxShape.circle,
         ),

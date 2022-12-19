@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:app/pages/Register/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -37,51 +38,63 @@ class _RegisterState extends State<Register> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 50,
+          alignment: AlignmentDirectional.center,
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                  ),
+                  MyWidget.getLogo(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MyWidget.getSignIn(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MyWidget.getDesc(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Form(
+                    child: MyWidget.getForm(),
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.disabled,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 40,
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff1E1E1E)),
+                      onPressed: _signup,
+                      child: !_Loader
+                          ? Text("Sign up",
+                              style: GoogleFonts.alegreyaSans(letterSpacing: 2))
+                          : CircularLoader(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: MyWidget.getFooter(),
+                  )
+                ],
               ),
-              MyWidget.getLogo(),
-              SizedBox(
-                height: 10,
-              ),
-              MyWidget.getSignIn(),
-              SizedBox(
-                height: 10,
-              ),
-              MyWidget.getDesc(),
-              SizedBox(
-                height: 10,
-              ),
-              Form(
-                child: MyWidget.getForm(),
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.disabled,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 40,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff1E1E1E)),
-                  onPressed: _signup,
-                  child: !_Loader
-                      ? Text("Sign up",
-                          style: GoogleFonts.alegreyaSans(letterSpacing: 2))
-                      : CircularLoader(),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              MyWidget.getFooter()
-            ],
+            ),
           ),
         ),
       ),
@@ -99,7 +112,7 @@ class _RegisterState extends State<Register> {
           password: MyWidget.password,
           profilepic: "");
       await auth.currentUser!.updateDisplayName(MyWidget.name);
-      await auth.currentUser!.updatePhotoURL("assets/images/avatar1.png");
+      await auth.currentUser!.updatePhotoURL("0");
       FirebaseFirestore.instance
           .collection("users")
           .doc(uid)
@@ -133,6 +146,49 @@ class _RegisterState extends State<Register> {
           _saveUser(userCred);
         }
       } on FirebaseAuthException catch (ex) {
+        if (ex.code.toString() == 'email-already-in-use') {
+          final snackBar = MaterialBanner(
+            /// need to set following properties for best effect of awesome_snackbar_content
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // forceActionsBelow: false,
+            content: AwesomeSnackbarContent(
+              title: 'Attention!',
+              message: 'Email alreay in use.',
+
+              /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+              contentType: ContentType.warning,
+              // to configure for material banner
+              inMaterialBanner: true,
+            ),
+            actions: const [SizedBox.shrink()],
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentMaterialBanner()
+            ..showMaterialBanner(snackBar);
+        } else if (ex.code.toString() == 'weak-password') {
+          final snackBar = MaterialBanner(
+            /// need to set following properties for best effect of awesome_snackbar_content
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // forceActionsBelow: false,
+            content: AwesomeSnackbarContent(
+              title: 'Attention!',
+              message: 'Please choose strong password.',
+
+              /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+              contentType: ContentType.warning,
+              // to configure for material banner
+              inMaterialBanner: true,
+            ),
+            actions: const [SizedBox.shrink()],
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentMaterialBanner()
+            ..showMaterialBanner(snackBar);
+        }
         setState(() {
           _Loader = false;
         });

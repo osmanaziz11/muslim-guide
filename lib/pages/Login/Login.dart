@@ -5,6 +5,7 @@ import 'package:app/pages/Application.dart';
 import 'package:app/pages/NavigationScreen/Home/Home.dart';
 import 'package:app/pages/Login/widgets/widgets.dart';
 import 'package:app/pages/Register/Register.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -83,10 +84,10 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 20,
               ),
-              widget.getSocial(),
-              SizedBox(
-                height: 30,
-              ),
+              // widget.getSocial(),
+              // SizedBox(
+              //   height: 30,
+              // ),
               TextButton(
                 onPressed: () {
                   Navigator.push(context,
@@ -121,7 +122,74 @@ class _LoginState extends State<Login> {
               context, CupertinoPageRoute(builder: (context) => Application()));
         }
       } on FirebaseAuthException catch (ex) {
-        print(ex);
+        print(ex.code.toString());
+        if (ex.code.toString() == 'user-not-found') {
+          final snackBar = MaterialBanner(
+            /// need to set following properties for best effect of awesome_snackbar_content
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // forceActionsBelow: false,
+            content: AwesomeSnackbarContent(
+              title: 'Attention!',
+              message: 'User does not exist.',
+
+              /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+              contentType: ContentType.failure,
+              // to configure for material banner
+              inMaterialBanner: true,
+            ),
+            actions: const [SizedBox.shrink()],
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentMaterialBanner()
+            ..showMaterialBanner(snackBar);
+        } else if (ex.code.toString() == 'wrong-password') {
+          final snackBar = MaterialBanner(
+            /// need to set following properties for best effect of awesome_snackbar_content
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // forceActionsBelow: false,
+            content: AwesomeSnackbarContent(
+              title: 'Attention!',
+              message: 'Wrong Password.',
+
+              /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+              contentType: ContentType.warning,
+              // to configure for material banner
+              inMaterialBanner: true,
+            ),
+            actions: const [SizedBox.shrink()],
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentMaterialBanner()
+            ..showMaterialBanner(snackBar);
+        } else {
+          final snackBar = MaterialBanner(
+            /// need to set following properties for best effect of awesome_snackbar_content
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // forceActionsBelow: false,
+            content: AwesomeSnackbarContent(
+              title: 'Attention!',
+              message: 'Invalid Credentials!',
+
+              /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+              contentType: ContentType.failure,
+              // to configure for material banner
+              inMaterialBanner: true,
+            ),
+            actions: const [SizedBox.shrink()],
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentMaterialBanner()
+            ..showMaterialBanner(snackBar);
+        }
+        setState(() {
+          _Loader = false;
+        });
       }
     }
   }

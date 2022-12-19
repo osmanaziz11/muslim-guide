@@ -1,4 +1,6 @@
 import 'package:app/customWidget/Appbar.dart';
+import 'package:app/customWidget/CircularLoader.dart';
+import 'package:app/customWidget/MainHeading.dart';
 import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Learning/widgets/Youtube.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +25,6 @@ class _ChooseTopicState extends State<ChooseTopic> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.category);
   }
 
   bool videoModule = false;
@@ -34,7 +35,6 @@ class _ChooseTopicState extends State<ChooseTopic> {
       },
       child: Container(
         height: 500,
-        color: Colors.red,
         child: ListTile(
           leading: Container(
             width: 40,
@@ -78,21 +78,7 @@ class _ChooseTopicState extends State<ChooseTopic> {
         width: double.infinity,
         height: double.infinity,
         child: Column(children: [
-          Container(
-            width: double.infinity,
-            height: 100,
-            alignment: AlignmentDirectional.center,
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              "Choose Channels",
-              style: GoogleFonts.comfortaa(
-                  fontWeight: FontWeight.w900,
-                  color: Color.fromARGB(201, 0, 0, 0),
-                  fontSize: 20),
-            ),
-          ),
+          MainHeading("Choose Channels"),
           Container(
               margin: EdgeInsets.only(top: 20),
               width: double.infinity,
@@ -110,55 +96,68 @@ class _ChooseTopicState extends State<ChooseTopic> {
                     if (snapshot.hasData) {
                       QuerySnapshot dataSnapshot =
                           snapshot.data as QuerySnapshot;
-                      return ListView.builder(
-                        itemCount: dataSnapshot.docs.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Youtube(
-                                        videos: dataSnapshot.docs[index]
-                                            ['videos']),
-                                  ))
-                            },
-                            child: ListTile(
-                              leading: Container(
-                                width: 40,
-                                height: 40,
-                                child: Icon(Icons.timelapse),
-                                margin: const EdgeInsets.only(right: 20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.white,
+                      if (dataSnapshot.docs.length > 0) {
+                        return ListView.builder(
+                          itemCount: dataSnapshot.docs.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Youtube(
+                                          videos: dataSnapshot.docs[index]
+                                              ['videos']),
+                                    ))
+                              },
+                              child: ListTile(
+                                leading: Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Icon(Icons.timelapse),
+                                  margin: const EdgeInsets.only(right: 20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              title: Text(
-                                dataSnapshot.docs[index]['name'],
-                                style: GoogleFonts.comfortaa(
+                                title: Text(
+                                  dataSnapshot.docs[index]['name'],
+                                  style: GoogleFonts.comfortaa(
+                                      fontWeight: FontWeight.w900,
+                                      color: const Color.fromARGB(
+                                          202, 255, 253, 253),
+                                      fontSize: 15),
+                                ),
+                                subtitle: Text(
+                                  dataSnapshot.docs[index]['subscriber'],
+                                  style: GoogleFonts.comfortaa(
                                     fontWeight: FontWeight.w900,
                                     color: const Color.fromARGB(
                                         202, 255, 253, 253),
-                                    fontSize: 15),
-                              ),
-                              subtitle: Text(
-                                dataSnapshot.docs[index]['subscriber'],
-                                style: GoogleFonts.comfortaa(
-                                  fontWeight: FontWeight.w900,
-                                  color:
-                                      const Color.fromARGB(202, 255, 253, 253),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      );
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text(
+                            "No channels found.",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }
                     } else {
-                      return Text("Error");
+                      return Center(
+                        child: CircularLoader(),
+                      );
                     }
                   } else {
-                    return Text("Error");
+                    return Center(
+                      child: CircularLoader(),
+                    );
                   }
                 },
               ))

@@ -1,4 +1,5 @@
 import 'package:app/customWidget/Appbar.dart';
+import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/models/Notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,7 +60,9 @@ class NotificationScreen extends StatelessWidget {
                                   fontSize: 20),
                             ),
                             subtitle: Text(
-                              "${noti.senderEmail} invite for a quiz",
+                              (noti.type == "answer")
+                                  ? "${noti.senderEmail} Answer your question"
+                                  : "${noti.senderEmail} Invite for a quiz",
                               style: GoogleFonts.alegreyaSans(
                                   color: const Color(0xFF5A5A5A), fontSize: 16),
                             ),
@@ -87,14 +90,13 @@ class NotificationScreen extends StatelessWidget {
                     );
                   }
                 } else {
-                  return const Text(
-                    "No notification found.",
-                    style: TextStyle(color: Colors.white),
+                  return Center(
+                    child: CircularLoader(),
                   );
                 }
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularLoader(),
                 );
               }
             }),

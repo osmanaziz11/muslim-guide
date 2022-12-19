@@ -45,6 +45,9 @@ dependencies:
   firebase_core: ^1.7.0
   quiver: ^3.1.0
   uuid: ^3.0.7
+  fl_chart: ^0.55.2
+  image_picker: ^0.8.6
+  awesome_snackbar_content: ^0.1.0
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1
