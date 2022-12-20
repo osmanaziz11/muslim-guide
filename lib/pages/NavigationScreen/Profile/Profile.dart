@@ -1,5 +1,6 @@
 import 'package:app/customWidget/Appbar.dart';
 import 'package:app/customWidget/CircularLoader.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -462,6 +463,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.currentUser!.updatePhotoURL(downloadUrl);
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .update({"profilepic": downloadUrl});
     taskSubscription.cancel();
   }
 }

@@ -2,6 +2,8 @@
 
 import 'package:app/pages/NavigationScreen/Home/Modules/Ask/Ask.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Compition/screens/Comp.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Compition/screens/cjoin.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Compition/screens/compBoardinng.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Feed/Feed.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Learning/Learning.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/OfflineBoarding.dart';
@@ -63,7 +65,17 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           case "/comp":
             {
+              page = compBoarding();
+              break;
+            }
+          case "/comp/create":
+            {
               page = Comp();
+              break;
+            }
+          case "/comp/join":
+            {
+              page = cJoin();
               break;
             }
 

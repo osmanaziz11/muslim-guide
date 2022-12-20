@@ -97,7 +97,7 @@ class _CreateRoomState extends State<CreateRoom> {
                       hintStyle: TextStyle(
                         color: Color(0xFFBEC2C2),
                       ),
-                      hintText: "Email Address",
+                      hintText: "Participant Name",
                       focusedBorder: UnderlineInputBorder(
                         borderSide:
                             BorderSide(width: 1, color: Color(0xFFBEC2C2)),
@@ -147,7 +147,7 @@ class _CreateRoomState extends State<CreateRoom> {
                                           onTap: () {},
                                           leading: CircleAvatar(
                                             backgroundImage: (user.profilepic !=
-                                                    "0")
+                                                    "")
                                                 ? NetworkImage(user.profilepic!)
                                                     as ImageProvider
                                                 : const AssetImage(
@@ -187,6 +187,7 @@ class _CreateRoomState extends State<CreateRoom> {
                                                 onPressed: () async {
                                                   selectId = user.uid;
                                                   if (!inviteStatus) {
+                                                    print("a");
                                                     numberOfParticipants++;
                                                     NotificationModel noti =
                                                         NotificationModel(

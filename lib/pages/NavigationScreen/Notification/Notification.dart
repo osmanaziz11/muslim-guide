@@ -1,6 +1,8 @@
 import 'package:app/customWidget/Appbar.dart';
 import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/models/Notification.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Feed/Answers.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Online/screens/QuizRoom.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +48,15 @@ class NotificationScreen extends StatelessWidget {
                               dataSnapshot.docs[index].data()
                                   as Map<String, dynamic>);
                           return ListTile(
-                            onTap: () async {},
+                            onTap: () async {
+                              if (noti.type == 'invite') {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return QuizRoom(roomID: noti.roomID!);
+                                  },
+                                ));
+                              }
+                            },
                             leading: const Icon(
                               Icons.notifications_on,
                               color: Colors.white,
@@ -66,17 +76,22 @@ class NotificationScreen extends StatelessWidget {
                               style: GoogleFonts.alegreyaSans(
                                   color: const Color(0xFF5A5A5A), fontSize: 16),
                             ),
-                            trailing: Container(
-                              width: 28,
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.red),
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.white,
-                              ),
-                            ),
+                            // trailing: InkWell(
+                            //   onTap: (){
+
+                            //   },
+                            //   child: Container(
+                            //     width: 28,
+                            //     height: 28,
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(30),
+                            //         color: Colors.red),
+                            //     child: const Icon(
+                            //       Icons.close,
+                            //       color: Color.fromARGB(181, 255, 255, 255),
+                            //     ),
+                            //   ),
+                            // ),
                           );
                         },
                       ),
