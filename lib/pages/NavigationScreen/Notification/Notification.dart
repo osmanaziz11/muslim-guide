@@ -3,6 +3,7 @@ import 'package:app/customWidget/CircularLoader.dart';
 import 'package:app/models/Notification.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Feed/Answers.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Online/screens/QuizRoom.dart';
+import 'package:app/pages/NavigationScreen/Notification/screens/notRoom.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class NotificationScreen extends StatelessWidget {
                               if (noti.type == 'invite') {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return QuizRoom(roomID: noti.roomID!);
+                                    return notRoom(roomID: noti.roomID!);
                                   },
                                 ));
                               }

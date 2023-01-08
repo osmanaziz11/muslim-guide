@@ -21,7 +21,7 @@ class compBoarding extends StatelessWidget {
       )),
       body: Container(
         child: Center(
-            child: Row(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -38,7 +38,9 @@ class compBoarding extends StatelessWidget {
                   child: Text("Create Compitition",
                       style: GoogleFonts.alegreyaSans(letterSpacing: 2))),
             ),
-            Spacer(),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               height: 40,
               padding: const EdgeInsets.symmetric(horizontal: 30),

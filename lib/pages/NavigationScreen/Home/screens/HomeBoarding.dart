@@ -290,9 +290,8 @@ class _HomeBoardingState extends State<HomeBoarding> {
                               width: 100,
                               decoration: BoxDecoration(
                                 image: const DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        "assets/images/question.png")),
+                                    fit: BoxFit.fill,
+                                    image: AssetImage("assets/images/q.png")),
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color.fromARGB(255, 238, 237, 237),
                               )),

@@ -38,7 +38,7 @@ class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
               children: [
                 MainHeading("Offline Quiz"),
                 Text(
-                  'Choose the topic you want us to assess',
+                  'Choose the topic you want us to excess',
                   style: GoogleFonts.alegreyaSans(
                       color: const Color(0xFF5A5A5A), fontSize: 14),
                 ),
@@ -69,7 +69,7 @@ class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
                                         OfflineQuizTopic.fromMap(
                                             dataSnapshot.docs[index].data()
                                                 as Map<String, dynamic>);
-                                    print("ID: ${dataSnapshot.docs[index].id}");
+                                   
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(
@@ -108,12 +108,12 @@ class _OfflineBoardingScreenState extends State<OfflineBoardingScreen> {
                                     );
                                   });
                             } else {
-                              return Center(
+                              return const Center(
                                 child: Text("No topics found."),
                               );
                             }
                           }
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         })),

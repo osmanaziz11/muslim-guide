@@ -17,13 +17,29 @@ class Youtube extends StatefulWidget {
 }
 
 class _YoutubeState extends State<Youtube> {
-  // YoutubePlayerController _controller = YoutubePlayerController(
-  //   initialVideoId: 'iLnmTe5Q2Qw',
-  //   flags: const YoutubePlayerFlags(
-  //     autoPlay: true,
-  //     mute: true,
-  //   ),
-  // );
+  bool Loading = false;
+  final List thumbnail = [
+    'm1.jpg',
+    'm2.jpg',
+    'm3.jpg',
+    'm4.jpg',
+    'm5.jpg',
+    'm6.jpg',
+    'm7.jpg',
+    'm8.jpg',
+    'm9.jpg',
+    'm10.jpg'
+        'm1.jpg',
+    'm2.jpg',
+    'm3.jpg',
+    'm4.jpg',
+    'm5.jpg',
+    'm6.jpg',
+    'm7.jpg',
+    'm8.jpg',
+    'm9.jpg',
+    'm10.jpg'
+  ];
   @override
   void initState() {
     super.initState();
@@ -50,6 +66,10 @@ class _YoutubeState extends State<Youtube> {
                   margin: const EdgeInsets.only(bottom: 10),
                   padding: const EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        opacity: 0.5,
+                        image: AssetImage("assets/images/${thumbnail[index]}")),
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xff201E1E),
                     boxShadow: [
@@ -64,7 +84,23 @@ class _YoutubeState extends State<Youtube> {
                     ],
                   ),
                   child: Center(
-                    child: CircularLoader(),
+                    child: (Loading)
+                        ? const CircularProgressIndicator()
+                        : InkWell(
+                            onTap: () => setState(() {
+                              print(index);
+                            }),
+                            child: Container(
+                              height: 40,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                // color: const Color.fromARGB(255, 238, 237, 237),
+                              ),
+                              child: Image.asset('assets/images/yt.png',
+                                  width: 150, height: 50),
+                            ),
+                          ),
                   ));
             },
           )),

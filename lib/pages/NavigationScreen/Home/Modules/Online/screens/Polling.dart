@@ -8,6 +8,7 @@ import 'package:app/models/Of_topics.dart';
 import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/screens/StartQuiz.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/widgets/widgets.dart';
+import 'package:app/pages/NavigationScreen/Home/Modules/Online/screens/OnlineStart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,9 +91,10 @@ class _PollingState extends State<Polling> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => StartQuiz(
-                                                    topicID: dataSnapshot
-                                                        .docs[index].id)));
+                                                builder: (context) =>
+                                                    OnlineStart(
+                                                        topicID: dataSnapshot
+                                                            .docs[index].id)));
                                       },
                                       child: Container(
                                         height: 90,

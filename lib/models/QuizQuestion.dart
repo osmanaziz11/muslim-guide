@@ -9,7 +9,7 @@ class QuizQuestion {
       {required this.answerIndex, required this.title, required this.options});
 
   QuizQuestion.fromMap(Map<String, dynamic> map) {
-    title = map["title"];
+    title = map["topic"];
     answerIndex = map["answerIndex"];
     options = map["options"];
   }

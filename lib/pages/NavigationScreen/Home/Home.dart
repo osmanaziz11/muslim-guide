@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               page = compBoarding();
               break;
             }
-          case "/comp/create":
+          case "/comp/comp":
             {
               page = Comp();
               break;

@@ -48,6 +48,7 @@ dependencies:
   fl_chart: ^0.55.2
   image_picker: ^0.8.6
   awesome_snackbar_content: ^0.1.0
+  delayed_display: ^2.0.0
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1

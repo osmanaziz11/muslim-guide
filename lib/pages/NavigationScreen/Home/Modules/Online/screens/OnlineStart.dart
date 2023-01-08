@@ -6,6 +6,7 @@ import 'package:app/navigation.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/widgets/Countdown.dart';
 import 'package:app/pages/NavigationScreen/Home/Modules/Offline/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,17 +14,18 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiver/async.dart';
 
-class StartQuiz extends StatefulWidget {
+class OnlineStart extends StatefulWidget {
   late var timer;
   int questionIndex = 0;
   late String? topicID;
-  StartQuiz({super.key, this.topicID});
+  OnlineStart({super.key, this.topicID});
 
   @override
-  State<StartQuiz> createState() => _StartQuizState();
+  State<OnlineStart> createState() => _OnlineStartState();
 }
 
-class _StartQuizState extends State<StartQuiz> {
+class _OnlineStartState extends State<OnlineStart> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   List _selectedIndexs = [];
   bool ansCheck = false;
   Color ansColor = Colors.white;
@@ -76,7 +78,7 @@ class _StartQuizState extends State<StartQuiz> {
             return Center(
               child: Text(
                 '${snapshot.error} occurred',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
             );
 
@@ -88,20 +90,83 @@ class _StartQuizState extends State<StartQuiz> {
 
             if (widget.questionIndex >= dataSnapshot.docs.length) {
               return Center(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MainHeading("Score"),
-                      Text(
-                        "${res}/${dataSnapshot.docs.length}",
-                        style: GoogleFonts.alegreya(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(242, 255, 255, 255),
-                            fontSize: 40),
-                      ),
-                    ]),
-              );
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    MainHeading("Score "),
+                    Container(
+                        width: 350,
+                        height: 200,
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 65,
+                                height: 150,
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                alignment: AlignmentDirectional.center,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      decoration: const BoxDecoration(),
+                                      width: double.infinity,
+                                      height: 60,
+                                      child: CircleAvatar(
+                                        backgroundImage: (_auth
+                                                    .currentUser!.photoURL !=
+                                                "0")
+                                            ? NetworkImage(_auth.currentUser!
+                                                .photoURL!) as ImageProvider
+                                            : const AssetImage(
+                                                "assets/images/avatar1.png"),
+                                      ),
+                                    ),
+                                    Text(
+                                      "${res}/${dataSnapshot.docs.length}",
+                                      style: GoogleFonts.alegreya(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              242, 255, 255, 255),
+                                          fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 65,
+                                height: 150,
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                alignment: AlignmentDirectional.center,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      decoration: const BoxDecoration(),
+                                      width: double.infinity,
+                                      height: 60,
+                                      child: const CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                            "assets/images/avatar1.png"),
+                                      ),
+                                    ),
+                                    Text(
+                                      "${5}/${dataSnapshot.docs.length}",
+                                      style: GoogleFonts.alegreya(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              242, 255, 255, 255),
+                                          fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]))
+                  ]));
             } else {
               QuizQuestion topic = QuizQuestion.fromMap(
                   dataSnapshot.docs[widget.questionIndex].data()
@@ -111,7 +176,7 @@ class _StartQuizState extends State<StartQuiz> {
                   Text(
                     "Question ${widget.questionIndex + 1}/${dataSnapshot.docs.length}",
                     style: GoogleFonts.alegreyaSans(
-                        color: Color.fromARGB(255, 172, 171, 171),
+                        color: const Color.fromARGB(255, 172, 171, 171),
                         fontSize: 18),
                   ),
                   Container(
@@ -156,7 +221,7 @@ class _StartQuizState extends State<StartQuiz> {
                               leading: Container(
                                 width: 40,
                                 height: 40,
-                                child: Icon(Icons.timelapse),
+                                child: const Icon(Icons.timelapse),
                                 margin: const EdgeInsets.only(right: 20),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),

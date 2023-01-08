@@ -127,8 +127,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "Name",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
-              subtitle: const Text(
-                "Osman Aziz",
+              subtitle: Text(
+                FirebaseAuth.instance.currentUser!.displayName as String,
                 style: TextStyle(
                     color: Color.fromARGB(255, 114, 114, 116), fontSize: 15),
               ),
@@ -162,8 +162,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "Email",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
-              subtitle: const Text(
-                "osmanaziz012@gmail.com",
+              subtitle: Text(
+                FirebaseAuth.instance.currentUser!.email as String,
                 style: TextStyle(
                     color: Color.fromARGB(255, 114, 114, 116), fontSize: 15),
               ),
